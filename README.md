@@ -9,7 +9,7 @@ By default macOS shows this message as an **alert** that stays on screen until y
 | Setting | Options |
 |---|---|
 | Style | None · Banners (disappear automatically) · Alerts (stay until dismissed) |
-| Show in Notification Center | yes / no |
+| Show in Notification Center | yes / no (saved, but **ignored by macOS** for this notification, see below) |
 | Show on Lock Screen | yes / no |
 
 ## Requirements
@@ -93,7 +93,11 @@ The script exports the settings, changes only the bits of the `_SYSTEM_CENTER_:c
 | macOS | 15 Sequoia |
 | Shell | `/bin/bash` 3.2 (the version included with macOS) |
 
-Changing the **style** to Banners was confirmed with a real "Disk Not Ejected Properly" notification. The **Notification Center** and **Lock Screen** options use the same bits that System Settings uses for regular apps, but whether macOS honors them for this system notification has not been confirmed yet.
+| Option | Result |
+|---|---|
+| Style (Banners) | ✅ Works |
+| Show in Notification Center | ❌ No effect. The setting is saved, but the notification never shows up in Notification Center, not even while the disk is still disconnected. |
+| Show on Lock Screen | Not tested yet |
 
 ## Limitations
 
