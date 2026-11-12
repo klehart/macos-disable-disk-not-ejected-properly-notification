@@ -102,3 +102,7 @@ Changing the **style** to Banners was confirmed with a real "Disk Not Ejected Pr
 - **Major updates** can reset the settings. Just run the script again.
 
 Use at your own risk.
+
+## License
+
+[MIT](LICENSE)
