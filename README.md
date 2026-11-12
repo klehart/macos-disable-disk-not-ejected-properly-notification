@@ -93,6 +93,7 @@ The script exports the settings, changes only the bits of the `_SYSTEM_CENTER_:c
 | Option | Result |
 |---|---|
 | Style (Banners) | ✅ Works |
+| Style (None) | ✅ Works, no notification appears at all |
 | Show in Notification Center | ❌ No effect. The setting was saved, but the notification never showed up in Notification Center, not even while the disk was still disconnected. The option was therefore removed from the script. |
 | Show on Lock Screen | Not tested yet |
 
