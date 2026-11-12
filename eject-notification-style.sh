@@ -28,7 +28,6 @@ fi
 
 FLAGS=$("$PB" -c "Print :apps:$INDEX:flags" "$PLIST")
 CURRENT=$(( (FLAGS >> 3) & 7 ))
-CUR_NC=$(( (FLAGS & 1) == 0 ))
 CUR_LOCK=$(( ((FLAGS >> 12) & 1) == 0 ))
 
 if [ "$CURRENT" -gt 2 ]; then
@@ -53,9 +52,8 @@ ask_yesno() {
 
 echo "Notification settings for \"Disk Not Ejected Properly\""
 echo
-echo "  Style:                       ${NAMES[$CURRENT]}"
-echo "  Show in Notification Center: $(yesno "$CUR_NC")"
-echo "  Show on Lock Screen:         $(yesno "$CUR_LOCK")"
+echo "  Style:               ${NAMES[$CURRENT]}"
+echo "  Show on Lock Screen: $(yesno "$CUR_LOCK")"
 echo
 
 CHOICE="$1"
@@ -76,19 +74,15 @@ case "$CHOICE" in
 esac
 
 echo
-NC=$(ask_yesno "Show in Notification Center?" "$CUR_NC")
 LOCK=$(ask_yesno "Show on Lock Screen?" "$CUR_LOCK")
 echo
 
-if [ "$STYLE" = "$CURRENT" ] && [ "$NC" = "$CUR_NC" ] && [ "$LOCK" = "$CUR_LOCK" ]; then
+if [ "$STYLE" = "$CURRENT" ] && [ "$LOCK" = "$CUR_LOCK" ]; then
   echo "No changes. Nothing to do."
   exit 0
 fi
 
 NEWFLAGS=$(( (FLAGS & ~(7 << 3)) | (STYLE << 3) ))
-if [ "$NC" != "$CUR_NC" ]; then
-  NEWFLAGS=$(( (NEWFLAGS & ~1) | (1 - NC) | (1 << 8) ))
-fi
 if [ "$LOCK" != "$CUR_LOCK" ]; then
   NEWFLAGS=$(( (NEWFLAGS & ~(1 << 12)) | ((1 - LOCK) << 12) ))
 fi
@@ -102,6 +96,5 @@ defaults import com.apple.ncprefs "$PLIST"
 killall usernoted NotificationCenter 2>/dev/null || true
 
 echo "Done."
-echo "  Style:                       ${NAMES[$STYLE]}"
-echo "  Show in Notification Center: $(yesno "$NC")"
-echo "  Show on Lock Screen:         $(yesno "$LOCK")"
+echo "  Style:               ${NAMES[$STYLE]}"
+echo "  Show on Lock Screen: $(yesno "$LOCK")"

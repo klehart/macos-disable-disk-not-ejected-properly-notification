@@ -9,7 +9,6 @@ By default macOS shows this message as an **alert** that stays on screen until y
 | Setting | Options |
 |---|---|
 | Style | None · Banners (disappear automatically) · Alerts (stay until dismissed) |
-| Show in Notification Center | yes / no (saved, but **ignored by macOS** for this notification, see below) |
 | Show on Lock Screen | yes / no |
 
 ## Requirements
@@ -32,9 +31,8 @@ By default macOS shows this message as an **alert** that stays on screen until y
    ```
    Notification settings for "Disk Not Ejected Properly"
 
-     Style:                       Alerts
-     Show in Notification Center: no
-     Show on Lock Screen:         yes
+     Style:               Alerts
+     Show on Lock Screen: yes
 
    Style:
      1) None     - no notification
@@ -42,13 +40,12 @@ By default macOS shows this message as an **alert** that stays on screen until y
      3) Alerts   - stays until dismissed
    Choice (1-3, Enter = keep "Alerts"): 2
 
-   Show in Notification Center? (y/n, Enter = keep "no"): y
    Show on Lock Screen? (y/n, Enter = keep "yes"):
    ```
 
    Pressing **Enter** keeps the current value. If nothing changes, nothing is written.
 
-You can also pass the style directly (the other two questions are still asked):
+You can also pass the style directly (the Lock Screen question is still asked):
 
 ```bash
 bash eject-notification-style.sh banners   # none, banners or alerts
@@ -96,7 +93,7 @@ The script exports the settings, changes only the bits of the `_SYSTEM_CENTER_:c
 | Option | Result |
 |---|---|
 | Style (Banners) | ✅ Works |
-| Show in Notification Center | ❌ No effect. The setting is saved, but the notification never shows up in Notification Center, not even while the disk is still disconnected. |
+| Show in Notification Center | ❌ No effect. The setting was saved, but the notification never showed up in Notification Center, not even while the disk was still disconnected. The option was therefore removed from the script. |
 | Show on Lock Screen | Not tested yet |
 
 ## Limitations
